@@ -1,5 +1,5 @@
 // Configura tu clave de API de OpenAI
-const apiKey = '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';
+const apiKey = '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';
 
 // Configura el contenedor del chat y el área de entrada
 const chatLog = document.getElementById('chat-log');
