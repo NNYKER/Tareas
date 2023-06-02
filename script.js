@@ -1,48 +1,41 @@
-const apiKey = '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';
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
-const chatLog = document.getElementById('chat-log');
-const userInput = document.getElementById('user-input');
+import java.io.IOException;
 
-function appendMessage(message, sender) {
-  const messageElement = document.createElement('div');
-  messageElement.classList.add('message', sender);
-  messageElement.innerText = message;
-  chatLog.appendChild(messageElement);
-}
+public class OpenAIChatExample {
+    public static void main(String[] args) {
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
 
-async function sendMessage(message) {
-  appendMessage(message, 'user');
+        String apiKey = "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"; // Reemplaza con tu clave de API
 
-  try {
-    const response = await axios.post(
-      'https://api.openai.com/v1/engines/davinci-codex/completions',
-      {
-        prompt: message,
-        max_tokens: 50
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
+        String prompt = "Who won the World Series in 2020?";
+
+        String json = String.format("{\"prompt\": \"%s\", \"max_tokens\": 50, \"temperature\": 0.7}", prompt);
+
+        RequestBody requestBody = RequestBody.create(json, mediaType);
+        Request request = new Request.Builder()
+                .url("https://api.openai.com/v1/engines/davinci-codex/completions")
+                .post(requestBody)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer " + apiKey)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String responseBody = response.body().string();
+                System.out.println(responseBody);
+                // Procesa la respuesta como desees
+            } else {
+                System.out.println("Error: " + response.code() + " " + response.message());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-      }
-    );
-
-    const reply = response.data.choices[0].text.trim();
-    appendMessage(reply, 'assistant');
-  } catch (error) {
-    console.error(error);
-    appendMessage('Ha ocurrido un error.', 'assistant');
-  }
+    }
 }
-
-userInput.addEventListener('keydown', event => {
-  if (event.key === 'Enter' && userInput.value !== '') {
-    const message = userInput.value;
-    userInput.value = '';
-
-    sendMessage(message);
-  }
-});
-
-userInput.focus();
