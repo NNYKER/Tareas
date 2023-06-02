@@ -1,34 +1,23 @@
 #chat-container {
   width: 400px;
-  margin: 0 auto;
-  padding: 20px;
+  height: 500px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#chat-log {
-  height: 300px;
   overflow-y: scroll;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
   padding: 10px;
 }
 
-.message {
+#chat-log {
   margin-bottom: 10px;
 }
 
 .user {
-  background-color: #f2f2f2;
+  background-color: #f0f0f0;
+  padding: 5px;
+  margin-bottom: 5px;
 }
 
 .assistant {
-  background-color: #e6e6e6;
-}
-
-#user-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  background-color: #e0e0e0;
+  padding: 5px;
+  margin-bottom: 5px;
 }
