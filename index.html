@@ -10,55 +10,6 @@
     <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
   </div>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
-    const chatContainer = document.getElementById('chat-container');
-    const chatLog = document.getElementById('chat-log');
-    const userInput = document.getElementById('user-input');
-
-    // Función para agregar un mensaje al registro del chat
-    function appendMessage(message, sender) {
-      const messageElement = document.createElement('div');
-      messageElement.classList.add('message');
-      messageElement.classList.add(sender);
-      messageElement.innerText = message;
-      chatLog.appendChild(messageElement);
-    }
-
-    // Función para enviar un mensaje al servidor
-    async function sendMessage(message) {
-      try {
-        const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
-          prompt: message,
-          max_tokens: 50,
-          temperature: 0.7
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer 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' // Reemplaza con tu clave de API
-          }
-        });
-
-        const reply = response.data.choices[0].text.trim();
-        appendMessage(reply, 'assistant');
-      } catch (error) {
-        console.error(error);
-        appendMessage('Ha ocurrido un error.', 'assistant');
-      }
-    }
-
-    // Función para manejar el envío del formulario
-    function handleSubmit(event) {
-      event.preventDefault();
-      const message = userInput.value.trim();
-      if (message !== '') {
-        appendMessage(message, 'user');
-        sendMessage(message);
-        userInput.value = '';
-      }
-    }
-
-    // Evento para escuchar el envío del formulario
-    chatContainer.addEventListener('submit', handleSubmit);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
