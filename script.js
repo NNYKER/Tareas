@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = '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';
 
 const chatLog = document.getElementById('chat-log');
 const userInput = document.getElementById('user-input');
