@@ -1,5 +1,5 @@
 // Configuración de la clave de API
-const apiKey = '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';
+const apiKey = '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';
 
 // Función para enviar una solicitud a la API de OpenAI
 async function sendMessage(message) {
