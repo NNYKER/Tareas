@@ -11,7 +11,7 @@ public class OpenAIChatExample {
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
 
-        String apiKey = "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"; // Reemplaza con tu clave de API
+        String apiKey = "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"; // Reemplaza con tu clave de API
 
         String prompt = "Who won the World Series in 2020?";
 
