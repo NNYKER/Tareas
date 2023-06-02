@@ -1,11 +1,8 @@
-// Configura tu clave de API de OpenAI
 const apiKey = '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';
 
-// Configura el contenedor del chat y el área de entrada
 const chatLog = document.getElementById('chat-log');
 const userInput = document.getElementById('user-input');
 
-// Función para agregar mensajes al chat
 function appendMessage(message, sender) {
   const messageElement = document.createElement('div');
   messageElement.classList.add('message', sender);
@@ -13,7 +10,6 @@ function appendMessage(message, sender) {
   chatLog.appendChild(messageElement);
 }
 
-// Función para enviar la solicitud a la API de OpenAI y recibir la respuesta
 async function sendMessage(message) {
   appendMessage(message, 'user');
 
@@ -40,7 +36,6 @@ async function sendMessage(message) {
   }
 }
 
-// Evento para manejar la entrada del usuario al presionar Enter
 userInput.addEventListener('keydown', event => {
   if (event.key === 'Enter' && userInput.value !== '') {
     const message = userInput.value;
@@ -50,5 +45,4 @@ userInput.addEventListener('keydown', event => {
   }
 });
 
-// Enfoca automáticamente el área de entrada al cargar la página
 userInput.focus();
