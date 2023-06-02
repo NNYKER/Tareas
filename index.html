@@ -1,15 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ChatGPT</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Chat GPT Personal</title>
+    <style>
+        /* Estilos CSS para el chat */
+        .chat-container {
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .user-message {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .assistant-message {
+            background-color: #e2e2e2;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .message-timestamp {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .message-input {
+            width: 100%;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div id="chat-container">
-    <div id="chat-log"></div>
-    <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="script.js"></script>
+    <h1>Chat GPT Personal</h1>
+
+    <div class="chat-container">
+        <div class="assistant-message">
+            <p>Welcome to the chat!</p>
+        </div>
+    </div>
+
+    <input type="text" class="message-input" id="user-input" placeholder="Type your message...">
+
+    <script src="https://cdn.jsdelivr.net/npm/@openai/chatgpt@0.2.0/dist/index.js"></script>
+    <script>
+        const chatPanel = document.querySelector('.chat-container');
+        const userInput = document.querySelector('#user-input');
+
+        const chatUser = ChatGPT.create('gpt-3.5-turbo', '<YOUR_API_KEY>');
+
+        function appendMessage(message, isUser = false) {
+            const messageContainer = document.createElement('div');
+            messageContainer.classList.add(isUser ? 'user-message' : 'assistant-message');
+            messageContainer.innerHTML = `
+                <p>${message}</p>
+                <p class="message-timestamp">${new Date().toLocaleString()}</p>
+            `;
+            chatPanel.appendChild(messageContainer);
+            chatPanel.scrollTop = chatPanel.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const userMessage = userInput.value;
+            userInput.value = '';
+
+            appendMessage(userMessage, true);
+
+            const assistantResponse = await chatUser.sendMessage(userMessage);
+
+            appendMessage(assistantResponse.choices[0].message.content);
+        }
+
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
 </body>
 </html>
